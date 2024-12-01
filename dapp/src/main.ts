@@ -64,6 +64,12 @@ canvas.addEventListener('click', () => {
   }
 });
 
+const img = new Image();
+img.src = 'path/to/your/image.png'; // Replace with the path to your image
+img.onload = () => {
+  requestAnimationFrame(paint);
+};
+
 let lastPaint = Date.now();
 function paint() {
   requestAnimationFrame(paint);
@@ -77,20 +83,13 @@ function paint() {
   const ctx = canvas.getContext('2d')!;
   ctx.fillStyle = 'rgba(255, 255, 255, 1)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = 'black';
-  ctx.beginPath();
-  ctx.arc(
-    canvas.width / 2,
-    canvas.height / 2,
-    (springPrimary.x + springSecondary.x) / 2,
-    0,
-    2 * Math.PI,
-    false
-  );
-  ctx.fill();
-}
 
-requestAnimationFrame(paint);
+  const imageSize = (springPrimary.x + springSecondary.x) / 2; // Dynamic size
+  const imageX = canvas.width / 2 - imageSize / 2; // Center X
+  const imageY = canvas.height / 2 - imageSize / 2; // Center Y
+
+  ctx.drawImage(img, imageX, imageY, imageSize, imageSize); // Draw the image
+}
 
 async function fetchLetter(): Promise<string> {
   while (true) {
