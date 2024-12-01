@@ -65,7 +65,7 @@ canvas.addEventListener('click', () => {
 });
 
 const img = new Image();
-img.src = 'path/to/your/image.png'; // Replace with the path to your image
+img.src = 'dapp/public/dot.png'; // Replace with the path to your image
 img.onload = () => {
   requestAnimationFrame(paint);
 };
